@@ -65,7 +65,7 @@ Chronos.start()
 
 ---
 
-## Recommended SDK Flow (MVP)
+## Recommended SDK Flow (0.1v)
 
 Your game sends events → Chronos stores memory → Brain derives NPC state → your game reacts.
 
