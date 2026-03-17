@@ -62,6 +62,8 @@ Chronos.configure(
   "npc_id"
 )
 
+```
+
 Chronos.configure_runtime(true, 2, 50)
 Chronos.start()
 How It Works
