@@ -162,6 +162,24 @@ Full demo:
 
 ---
 
+# Community
+
+Building with Chronos?  
+Have questions, feedback, or ideas?
+
+Join the community or reach out directly.
+
+### Discord (Developer Community)
+[ https://discord.gg/Pg6Txu8YyB ]
+
+### Chronos Updates (Project X)
+[ https://x.com/EngineChronos ]
+
+### Founder Contact
+[ https://x.com/mr_manasmishra ]
+
+---
+
 ## License
 
 MIT License
