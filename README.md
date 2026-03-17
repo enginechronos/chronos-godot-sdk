@@ -82,11 +82,26 @@ Chronos.npc_state_updated.connect(_on_npc_state_updated)
 ### Example handler
 
 ```gdscript
-func _on_npc_state_updated(row):
-  var npc_id = row["npc_id"]
-  var state = row["state"]
+ # Example handler for NPC updates
 
-  print("NPC state updated:", npc_id, state)
+func _on_npc_state_updated(row):
+
+    var npc_id = row["npc_id"]
+    var state = row["state"]
+
+    print("NPC state updated:", npc_id, state)
+    
+    
+    # Example in a real game:
+    func _on_npc_state_updated(row):
+
+    var state = row["state"]
+
+    if state["mood"] == "hostile":
+        guard_attack_player()
+
+    if state["mood"] == "friendly":
+        guard_allow_entry()
 ```
 
 ---
