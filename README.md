@@ -17,42 +17,36 @@ Instead of NPCs forgetting everything between sessions, Chronos lets them **reme
 
 ---
 
-## Getting Started
-
-Integrating Chronos into your game takes just a few steps.
-
----
-
-### 1. Install the SDK
+## Installation
 
 Copy the SDK into your project:
+
+
 res://addons/chronos/
 
 
-Required files:
+Files:
 
-- Chronos.gd  
-- ChronosRESTClient.gd  
-- ChronosSSEClient.gd  
-- ChronosTypes.gd  
-- plugin.gd  
-- plugin.cfg  
+
+Chronos.gd
+ChronosRESTClient.gd
+ChronosSSEClient.gd
+ChronosTypes.gd
+plugin.gd
+plugin.cfg
+
 
 ---
 
-### 2. Enable the Plugin
+## Enable the Plugin
 
-In Godot:
-
-- Open **Project → Project Settings → Plugins**  
+- Open: Project → Project Settings → Plugins  
 - Find **Chronos**  
 - Set to **Enabled**
 
 ---
 
-### 3. Configure Chronos
-
-Initialize Chronos with your project credentials:
+## Configure Chronos
 
 ```gdscript
 Chronos.configure(
@@ -62,37 +56,40 @@ Chronos.configure(
   "npc_id"
 )
 
-```
-
 Chronos.configure_runtime(true, 2, 50)
 Chronos.start()
-How It Works
 
-Your game no longer manages NPC logic manually.
+```
 
-Instead:
+Recommended SDK Flow (MVP)
 
-Your Game → sends events  
-Chronos → stores memory  
-Chronos Brain → derives NPC state  
-Your Game → reacts automatically  
-Core Integration
+Your game sends events → Chronos stores memory → Brain derives NPC state → your game reacts.
 
-There are only two things your game needs to do:
+Important Call 1 — Listen for NPC state updates
 
-1. Listen for NPC updates
-
-When Chronos updates an NPC’s state, your game reacts:
+When Chronos updates an NPC’s state, your game listens for the update and reacts to the new behavior.
 
 Chronos.npc_state_updated.connect(_on_npc_state_updated)
 
+# Example handler for NPC updates
 func _on_npc_state_updated(row):
+
   var npc_id = row["npc_id"]
   var state = row["state"]
-  print("NPC state updated:", npc_id, state)
-2. Send gameplay events
 
-Whenever something important happens in your game:
+  print("NPC state updated:", npc_id, state)
+Important Call 2 — Send gameplay events
+
+When something important happens in your game, send it to Chronos.
+
+Chronos.append_event(
+  "player_1",
+  event_type,
+  payload,
+  true
+)
+
+Example:
 
 Chronos.append_event(
   "player_1",
@@ -100,27 +97,21 @@ Chronos.append_event(
   {"context":"conversation"},
   true
 )
-What Chronos Handles Automatically
 
-You don’t need to manage:
+Chronos will automatically:
 
-storing events
+store the event
 
-running AI logic
+run the Brain
 
-updating NPC state
+update NPC state
 
-syncing state back to the game
+push the update back to the game
 
-Chronos handles all of this for you.
-
-Optional: Load NPC State on Startup
-
-To instantly restore memory:
-
+Optional Call — Load saved NPC state on startup
 Chronos.get_npc_state("guard_1")
 
-This ensures NPCs reflect past actions immediately when the game starts.
+This ensures the NPC reflects saved memory immediately.
 
 Example Project
 
